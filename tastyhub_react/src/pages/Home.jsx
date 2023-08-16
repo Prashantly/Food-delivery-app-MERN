@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import API_BASE_URL from "../constant";
 
 const Home = () => {
   const [foodCat, setFoodCat] = useState([]);
@@ -10,7 +11,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
 
   const loadData = async (req, res) => {
-    let response = await fetch("http://localhost:5000/api/foodData", {
+    let response = await fetch(`${API_BASE_URL}/api/foodData`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

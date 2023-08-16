@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
+import API_BASE_URL from "../constant";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -13,7 +14,7 @@ const Login = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/api/login";
+    const url = `${API_BASE_URL}/api/login`;
     const options = {
       method: "POST",
       headers: {

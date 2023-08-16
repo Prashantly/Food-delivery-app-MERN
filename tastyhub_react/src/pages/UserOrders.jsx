@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import API_BASE_URL from "../constant";
 
 const UserOrders = () => {
   const [orderData, setOrderData] = useState([]);
@@ -9,12 +10,9 @@ const UserOrders = () => {
     let email = localStorage.getItem("userEmail");
     const fetchMyOrders = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:5000/api/getOrders",
-          {
-            email: email,
-          }
-        );
+        const response = await axios.post(`${API_BASE_URL}/api/getOrders`, {
+          email: email,
+        });
         console.log("Response:", response);
         if (response.status === 200) {
           if (response.data.orders.length === 0) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import API_BASE_URL from "../constant";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -51,7 +51,7 @@ const SignUp = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:5000/api/create-user";
+    const url = `${API_BASE_URL}/api/create-user`;
     const options = {
       method: "POST",
       headers: {

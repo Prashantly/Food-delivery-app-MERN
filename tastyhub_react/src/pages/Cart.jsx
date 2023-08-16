@@ -1,6 +1,7 @@
 import React from "react";
 import { useCart, useDispatchCart } from "../components/ContextReducer";
 import { toast } from "react-hot-toast";
+import API_BASE_URL from "../constant";
 export default function Cart() {
   let cartData = useCart();
   // console.log(data);
@@ -17,7 +18,7 @@ export default function Cart() {
     let userEmail = localStorage.getItem("userEmail");
     console.log(userEmail);
     // console.log(data,localStorage.getItem("userEmail"),new Date())
-    let response = await fetch("http://localhost:5000/api/createOrder", {
+    let response = await fetch(`${API_BASE_URL}/api/createOrder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
