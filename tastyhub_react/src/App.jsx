@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { CartProvider } from "./components/ContextReducer";
 import UserOrders from "./pages/UserOrders";
+import NotFound from "./pages/NotFound";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -37,6 +38,8 @@ function App() {
               ) : (
                 <Route path="/myOrder" element={<Navigate to="/login" />} />
               )}
+
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </Router>
