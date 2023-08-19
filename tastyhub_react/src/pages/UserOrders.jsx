@@ -10,6 +10,7 @@ const UserOrders = () => {
     let email = localStorage.getItem("userEmail");
     let token = localStorage.getItem("authToken");
     const headers = {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
     const fetchMyOrders = async () => {
