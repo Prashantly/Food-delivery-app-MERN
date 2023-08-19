@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useCart, useDispatchCart } from "./ContextReducer";
 import { toast } from "react-hot-toast";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Card = (props) => {
   const priceRef = useRef();
@@ -101,7 +102,7 @@ const Card = (props) => {
 
   return (
     <div className="card mt-3" style={styles.card}>
-      <img
+      <LazyLoadImage
         src={foodItem.img}
         className="card-img-top"
         alt={foodItem.name}

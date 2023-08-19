@@ -9,19 +9,18 @@ let options = {
 };
 
 passport.use(
-  new JWTStrategy(options, function (jwt_payload, done) {
-    User.findById(jwt_payload._id, function (err, user) {
-      if (err) {
-        console.log("Error in finding user from JWT");
-        return done(err, false);
-      }
-
+  new JWTStrategy(options, async function (jwt_payload, done) {
+    try {
+      const user = await User.findById(jwt_payload.userId).exec();
       if (user) {
         return done(null, user);
       } else {
         return done(null, false);
       }
-    });
+    } catch (err) {
+      console.log("Error in finding user from JWT");
+      return done(err, false);
+    }
   })
 );
 

@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { toast } from "react-hot-toast";
 import API_BASE_URL from "../constant";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const isAuth = localStorage.getItem("authToken");
+    if (isAuth && isAuth !== "undefined") {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -67,6 +73,7 @@ const Login = () => {
           'url("https://images.pexels.com/photos/326278/pexels-photo-326278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
         height: "100vh",
         backgroundSize: "cover",
+        transition: "background-image 0.5s ease-in-out",
       }}
     >
       <Navbar />

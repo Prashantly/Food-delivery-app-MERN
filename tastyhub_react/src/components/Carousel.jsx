@@ -1,4 +1,5 @@
 import React from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Carousel = () => {
   return (
@@ -24,21 +25,21 @@ const Carousel = () => {
         </div>
 
         <div className="carousel-item active">
-          <img
+          <LazyLoadImage
             src="https://source.unsplash.com/random/?burger"
             className="d-block w-100"
             alt="..."
           />
         </div>
         <div className="carousel-item">
-          <img
+          <LazyLoadImage
             src="https://source.unsplash.com/random/?pastry"
             className="d-block w-100"
             alt="..."
           />
         </div>
         <div className="carousel-item">
-          <img
+          <LazyLoadImage
             src="https://source.unsplash.com/random/?barbeque"
             className="d-block w-100"
             alt="..."

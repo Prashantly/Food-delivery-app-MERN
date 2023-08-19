@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API_BASE_URL from "../constant";
 import Navbar from "../components/Navbar";
@@ -10,6 +10,7 @@ let geo_API = "https://api.opencagedata.com/geocode/v1/json?";
 let API_KEY = "14b0b59773d44adaa692821f2f5d9a50";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [address, setAddress] = useState("");
   const [credentials, setCredentials] = useState({
     name: "",
@@ -18,7 +19,13 @@ const SignUp = () => {
     password: "",
     confirm_password: "",
   });
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAuth = localStorage.getItem("authToken");
+    if (isAuth && isAuth !== "undefined") {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -110,6 +117,7 @@ const SignUp = () => {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        transition: "background-image 0.5s ease-in-out",
       }}
     >
       <div>

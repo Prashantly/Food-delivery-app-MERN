@@ -16,12 +16,13 @@ export default function Cart() {
 
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    console.log(userEmail);
+    let token = localStorage.getItem("authToken");
     // console.log(data,localStorage.getItem("userEmail"),new Date())
     let response = await fetch(`${API_BASE_URL}/api/createOrder`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         email: userEmail,

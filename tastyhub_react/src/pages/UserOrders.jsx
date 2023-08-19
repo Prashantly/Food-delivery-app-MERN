@@ -8,11 +8,19 @@ const UserOrders = () => {
   const [noOrders, setNoOrders] = useState(true);
   useEffect(() => {
     let email = localStorage.getItem("userEmail");
+    let token = localStorage.getItem("authToken");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     const fetchMyOrders = async () => {
       try {
-        const response = await axios.post(`${API_BASE_URL}/api/getOrders`, {
-          email: email,
-        });
+        const response = await axios.post(
+          `${API_BASE_URL}/api/getOrders`,
+          {
+            email: email,
+          },
+          { headers }
+        );
         console.log("Response:", response);
         if (response.status === 200) {
           if (response.data.orders.length === 0) {
