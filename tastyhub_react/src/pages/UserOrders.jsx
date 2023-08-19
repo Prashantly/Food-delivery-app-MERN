@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import API_BASE_URL from "../constant";
+import RingLoader from "react-spinners/RingLoader";
 
 const UserOrders = () => {
   const [orderData, setOrderData] = useState([]);
-  const [noOrders, setNoOrders] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     let email = localStorage.getItem("userEmail");
     let token = localStorage.getItem("authToken");
@@ -25,32 +26,47 @@ const UserOrders = () => {
         console.log("Response:", response);
         if (response.status === 200) {
           if (response.data.orders.length === 0) {
-            console.log(noOrders);
+            setOrderData([]);
           } else {
             console.log(response.data.orders);
-            setNoOrders(false);
             setOrderData(response.data.orders);
           }
         }
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       } catch (err) {
         console.error("Error:", err);
       }
     };
 
     fetchMyOrders();
-  }, [noOrders]);
+  }, []);
   return (
     <>
       <Navbar />
-      {noOrders ? (
-        <div className="container mt-4 text-center">
-          <h3>
-            You don't have any orders at the moment! Please check back
-            later...😔😔
-          </h3>
-        </div>
-      ) : (
-        <div className="container">
+      <div className="container">
+        {loading ? (
+          <RingLoader
+            color="#12ff1d"
+            cssOverride={{
+              borderColor: "red",
+              display: "block",
+              margin: "0 auto",
+              marginTop: "40px",
+            }}
+            size={100}
+            speedMultiplier={1}
+          />
+        ) : orderData.length === 0 ? (
+          <div className="mt-4 text-center">
+            <h3>
+              You don't have any orders at the moment! Please check back
+              later...😔😔
+            </h3>
+          </div>
+        ) : (
           <div className="row">
             {orderData.map((order, index) => (
               <div key={index} className="order-container">
@@ -79,8 +95,8 @@ const UserOrders = () => {
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
