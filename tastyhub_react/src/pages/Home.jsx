@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import API_BASE_URL from "../constant";
 
 const Home = () => {
@@ -10,18 +11,21 @@ const Home = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
 
-  const loadData = async (req, res) => {
-    let response = await fetch(`${API_BASE_URL}/api/foodData`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const loadData = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/foodData`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    response = await response.json();
-    // console.log(response[0], response[1]);
-    setFoodItems(response[0]);
-    setFoodCat(response[1]);
+      const responseData = response.data;
+      setFoodItems(responseData[0]);
+      setFoodCat(responseData[1]);
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle the error gracefully, e.g., display an error message to the user
+    }
   };
 
   useEffect(() => {
