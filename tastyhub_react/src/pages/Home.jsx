@@ -4,13 +4,15 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import API_BASE_URL from "../constant";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Home = () => {
   const [foodCat, setFoodCat] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  const loadData = async (req, res) => {
+  const loadData = async () => {
     let response = await fetch(`${API_BASE_URL}/api/foodData`, {
       method: "GET",
       headers: {
@@ -22,6 +24,7 @@ const Home = () => {
     // console.log(response[0], response[1]);
     setFoodItems(response[0]);
     setFoodCat(response[1]);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -161,8 +164,19 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Cards display logic */}
-      <div className="container">
+      {
+       isLoading ? (
+        <div className="text-center d-flex justify-content-center align-items-center" style={{ height: "50vh", color:"#36d7b7"}}>
+          <div>
+            <h5 style={{ marginLeft: "10px" }}>Fetching delicious food items... Hold on to your taste buds!</h5>
+          </div>
+          <div style={{marginTop:"-11px"}}>
+            <PacmanLoader color="#36d7b7" />
+          </div>
+        </div>
+        ): (
+          {/* Cards display logic */},
+          <div className="container">
         {foodCat.length !== 0 &&
           foodCat.map((category) => (
             <div key={category._id} className="row mb-3">
@@ -192,6 +206,8 @@ const Home = () => {
             </div>
           ))}
       </div>
+        )
+      }
       <Footer />
     </>
   );

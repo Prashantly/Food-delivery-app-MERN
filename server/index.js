@@ -11,7 +11,7 @@ const port = process.env.PORT || 3002;
 
 app.use(
   cors({
-    // origin: "http://localhost:3000",
+    //origin: "http://localhost:3000",
     origin: "https://tastyhub-mern.netlify.app",
     methods: "GET,POST,PUT,DELETE,PATCH",
     credentials: true, //access-control-allow-credentials:true
